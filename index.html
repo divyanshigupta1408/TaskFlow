@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════ ONBOARDING ═══════════════════ -->
+<div class="main-content" id="onboarding-wrapper">
+
+  <!-- Progress dots + Skip -->
+  <div class="onboarding-controls" id="onboardingControls">
+    <div class="progress-dots">
+      <span class="dot active" id="dot1"></span>
+      <span class="dot" id="dot2"></span>
+      <span class="dot" id="dot3"></span>
+    </div>
+    <button class="skip-btn" onclick="nextScreen(4)">Skip</button>
+  </div>
+
+  <!-- Screen 1 -->
+  <section class="screen active" id="screen1">
+    <div class="onboarding-left">
+      <div class="onboarding-step-label">01 / 03</div>
+      <h1>Plan Your Day<br><span class="accent">Better.</span></h1>
+      <p>Organize tasks, manage reminders, and stay productive every single day.</p>
+      <button class="btn" onclick="nextScreen(2)">Next →</button>
+    </div>
+    <div class="onboarding-right ob-bg-1">
+      <img src="assets/images/planning.png" alt="Planning" class="onboarding-image">
+    </div>
+  </section>
+
+  <!-- Screen 2 -->
+  <section class="screen" id="screen2">
+    <div class="onboarding-left">
+      <div class="onboarding-step-label">02 / 03</div>
+      <h1>Build Better<br><span class="accent">Habits.</span></h1>
+      <p>Create routines, set reminders, and maintain daily streaks effortlessly.</p>
+      <button class="btn" onclick="nextScreen(3)">Next →</button>
+    </div>
+    <div class="onboarding-right ob-bg-2">
+      <img src="assets/images/habits.png" alt="Habits" class="onboarding-image">
+    </div>
+  </section>
+
+  <!-- Screen 3 -->
+  <section class="screen" id="screen3">
+    <div class="onboarding-left">
+      <div class="onboarding-step-label">03 / 03</div>
+      <h1>Earn Rewards,<br><span class="accent">Celebrate.</span></h1>
+      <p>Complete tasks, earn stars, and celebrate every bit of consistency.</p>
+      <button class="btn" onclick="nextScreen(4)">Get Started →</button>
+    </div>
+    <div class="onboarding-right ob-bg-3">
+      <img src="assets/images/rewards.png" alt="Rewards" class="onboarding-image">
+    </div>
+  </section>
+
+  <!-- Screen 4 — Name -->
+  <section class="screen" id="screen4">
+    <div class="onboarding-left">
+      <div class="onboarding-step-label">WELCOME</div>
+      <h1>What should<br>we call <span class="accent">you?</span></h1>
+      <p>We'll personalise your experience just for you.</p>
+      <input type="text" id="username" placeholder="Enter your name">
+      <button class="btn" onclick="saveName()">Continue →</button>
+    </div>
+    <div class="onboarding-right ob-bg-4"></div>
+  </section>
+
+  <!-- Screen 5 — Goal -->
+  <section class="screen" id="screen5">
+    <div class="onboarding-left wide">
+      <div class="onboarding-step-label">YOUR GOAL</div>
+      <h1>What's your<br>main <span class="accent">focus?</span></h1>
+      <p>Pick the one that describes you best.</p>
+      <div class="goal-container">
+        <div class="goal-card" data-goal="Study Better">
+          <div class="goal-icon">📚</div>
+          <span>Study Better</span>
+        </div>
+        <div class="goal-card" data-goal="Stay Healthy">
+          <div class="goal-icon">💪</div>
+          <span>Stay Healthy</span>
+        </div>
+        <div class="goal-card" data-goal="Be More Productive">
+          <div class="goal-icon">⚡</div>
+          <span>Be Productive</span>
+        </div>
+        <div class="goal-card" data-goal="Build New Habits">
+          <div class="goal-icon">🔥</div>
+          <span>Build Habits</span>
+        </div>
+      </div>
+      <button class="btn" onclick="goToDashboard()">Continue →</button>
+    </div>
+  </section>
+
+</div><!-- /onboarding-wrapper -->
+
+
+<!-- ═══════════════════ DASHBOARD ═══════════════════ -->
+<div class="dashboard-layout" id="dashboardLayout">
+
+  <!-- Sidebar -->
+  <nav class="side-nav" id="sideNav">
+    <div class="nav-logo">
+      <span class="logo-circle">✓</span>
+      <span class="logo-text">TaskFlow</span>
+    </div>
+
+    <div class="nav-items">
+      <button class="nav-btn active" onclick="showTab('home')" data-tab="home" title="Home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-btn" onclick="showTab('calendar')" data-tab="calendar" title="Calendar">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Calendar</span>
+      </button>
+      <button class="nav-btn" onclick="showTab('habits')" data-tab="habits" title="Habits">
+        <span class="nav-icon">🔥</span>
+        <span class="nav-label">Habits</span>
+      </button>
+      <button class="nav-btn" onclick="showTab('analytics')" data-tab="analytics" title="Analytics">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Analytics</span>
+      </button>
+    </div>
+
+    <button class="nav-btn settings-nav-btn" onclick="showTab('settings')" data-tab="settings" title="Settings">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">Settings</span>
+    </button>
+  </nav>
+
+  <!-- Main panel -->
+  <main class="dashboard-main" id="dashboard">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div class="header-left">
+        <h2 id="welcomeUser">Good Morning!</h2>
+        <p class="header-sub">Let's make today count 🚀</p>
+      </div>
+      <div class="header-right">
+        <div class="badge-chip">
+          <span class="badge-icon">⭐</span>
+          <span id="starCount">0</span> Stars
+        </div>
+        <div class="badge-chip streak-chip">
+          <span class="badge-icon">🔥</span>
+          <span id="streakCount">0</span> Streak
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab content -->
+    <div class="dashboard-content">
+
+      <!-- ── HOME TAB ── -->
+      <div id="homeTab">
+
+        <!-- Today's Focus Banner -->
+        <div class="focus-banner">
+          <div class="focus-banner-left">
+            <p class="focus-label">TODAY'S FOCUS</p>
+            <h3 id="focusTasks">4 Tasks Left</h3>
+          </div>
+          <div class="focus-divider"></div>
+          <div class="focus-banner-right">
+            <p class="focus-label">HABITS</p>
+            <h3 id="focusHabits">2 Left</h3>
+          </div>
+          <div class="focus-progress-wrap">
+            <div class="focus-progress-bar">
+              <div class="focus-progress-fill" id="focusProgressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tasks Section -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Today's Tasks</h3>
+            <button class="add-btn" onclick="addTask()">+ Add Task</button>
+          </div>
+          <div id="taskList"></div>
+        </div>
+
+        <!-- Reminders -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Upcoming Reminders</h3>
+          </div>
+          <div id="reminderList"></div>
+        </div>
+
+        <!-- Daily Progress -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Daily Progress</h3>
+            <span class="progress-label" id="progressText">0/0 Completed</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="panel">
+          <div class="panel-header"><h3>Achievements</h3></div>
+          <div class="achievement-grid">
+            <div class="achievement-card stars-card">
+              <div class="ach-icon">⭐</div>
+              <div class="ach-value" id="achievementStars">0</div>
+              <div class="ach-label">Stars Earned</div>
+            </div>
+            <div class="achievement-card streak-card">
+              <div class="ach-icon">🔥</div>
+              <div class="ach-value" id="achievementStreak">0</div>
+              <div class="ach-label">Best Streak</div>
+            </div>
+            <div class="achievement-card done-card">
+              <div class="ach-icon">✅</div>
+              <div class="ach-value" id="achievementCompleted">0</div>
+              <div class="ach-label">Completed</div>
+            </div>
+            <div class="achievement-card rate-card">
+              <div class="ach-icon">🎯</div>
+              <div class="ach-value" id="achievementSuccess">0%</div>
+              <div class="ach-label">Success Rate</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /homeTab -->
+
+
+      <!-- ── CALENDAR TAB ── -->
+      <div id="calendarTab" class="tab-content" >
+        <div class="panel">
+          <div class="calendar-header">
+            <button class="cal-nav-btn" onclick="changeMonth(-1)">←</button>
+            <h3 id="monthYear"></h3>
+            <button class="cal-nav-btn" onclick="changeMonth(1)">→</button>
+          </div>
+          <div class="weekdays">
+            <div>Sun</div><div>Mon</div><div>Tue</div>
+            <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
+          <div id="calendarGrid"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h3>Tasks for Selected Date</h3></div>
+          <div id="selectedDateTasks">
+            <div class="empty-state"><div class="empty-icon">📅</div><p>Select a date to view tasks</p></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── HABITS TAB ── -->
+      <div id="habitTab"class="tab-content">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>My Habits</h3>
+            <button class="add-btn" onclick="openHabitModal()">+ Add Habit</button>
+          </div>
+          <div id="habitList"></div>
+        </div>
+      </div>
+
+
+      <!-- ── ANALYTICS TAB ── -->
+      <div id="analyticsTab" class="tab-content">
+        <div class="stats-row">
+          <div class="stat-big-card">
+            <div class="stat-big-icon">📋</div>
+            <div class="stat-big-value" id="totalTasks">0</div>
+            <div class="stat-big-label">Total Tasks</div>
+          </div>
+          <div class="stat-big-card">
+            <div class="stat-big-icon">✅</div>
+            <div class="stat-big-value" id="completedTasks">0</div>
+            <div class="stat-big-label">Completed</div>
+          </div>
+          <div class="stat-big-card highlight-card">
+            <div class="stat-big-icon">🎯</div>
+            <div class="stat-big-value" id="completionRate">0%</div>
+            <div class="stat-big-label">Completion Rate</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h3>Progress Overview</h3></div>
+          <div class="analytics-bar-wrap">
+            <div class="analytics-bar-label">
+              <span>Completion</span>
+              <span id="analyticsRateLabel">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="analyticsProgressFill"></div>
+            </div>
+          </div>
+          <div class="analytics-bar-wrap habit-margin">
+            <div class="analytics-bar-label">
+              <span>Habit Streaks</span>
+              <span id="analyticsStreakLabel">0</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill streak-fill" id="analyticsStreakFill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── SETTINGS TAB ── -->
+      <div id="settingsTab" class="tab-content">
+        <div class="panel">
+          <div class="panel-header"><h3>Appearance</h3></div>
+          <div class="settings-row">
+            <div>
+              <p class="settings-item-title">Dark Mode</p>
+              <p class="settings-item-sub">Switch between light and dark theme</p>
+            </div>
+            <button id="themeToggle" class="toggle-btn">🌙 Dark</button>
+          </div>
+        </div>
+        <div class="panel danger-panel">
+          <div class="panel-header"><h3>Data</h3></div>
+          <div class="settings-row">
+            <div>
+              <p class="settings-item-title">Reset All Data</p>
+              <p class="settings-item-sub">This will permanently delete everything</p>
+            </div>
+            <button class="reset-btn" onclick="resetData()">Reset</button>
+          </div>
+        </div>
+        <div class="app-footer">
+          <p class="footer-title">TaskFlow v1.0</p>
+          <p class="footer-credit">Designed &amp; Developed by Divyanshi</p>
+        </div>
+      </div>
+
+    </div><!-- /dashboard-content -->
+  </main>
+</div><!-- /dashboard-layout -->
+
+
+<!-- ═══════════════════ MODALS ═══════════════════ -->
+
+<!-- Add Task -->
+<div class="modal-overlay" id="taskModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>New Task</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <input type="text" id="taskInput" placeholder="What needs to be done?">
+    <div class="modal-row">
+      
+      <select id="taskCategory" aria-label="Task category">
+        <option>STUDY</option>
+        <option>WORK</option>
+        <option>HEALTH</option>
+        <option>HOBBY</option>
+        <option>OTHER</option>
+      </select>
+      
+      <select id="taskPriority" aria-label="Task priority">
+        <option>HIGH</option>
+        <option>MEDIUM</option>
+        <option>LOW</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <input 
+      type="date" 
+      id="taskDate"
+      aria-label="Task date">
+      <input 
+      type="time" 
+      id="taskTime"
+      aria-label="Task time">
+    </div>
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      <button class="save-btn" onclick="saveTask()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Habit -->
+<div class="modal-overlay" id="habitModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>New Habit</h2>
+      <button class="modal-close" onclick="closeHabitModal()">✕</button>
+    </div>
+    <input type="text" id="habitInput" placeholder="Habit name">
+    <input 
+    type="time" 
+    id="habitTime"
+    aria-label="Habit time">
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeHabitModal()">Cancel</button>
+      <button class="save-btn" onclick="saveHabit()">Save Habit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reward -->
+<div class="modal-overlay" id="rewardModal">
+  <div class="modal reward-modal">
+    <div class="reward-emoji">🏆</div>
+    <h2>All Done!</h2>
+    <p>You crushed every task today. Here's your reward:</p>
+    <div class="reward-badge">⭐ +1 Star Earned</div>
+    <button class="save-btn" onclick="closeRewardModal()">Awesome!</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
